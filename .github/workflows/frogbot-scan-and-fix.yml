@@ -26,7 +26,15 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x' 
+      - name: Restore dependencies VC10
+        run: dotnet restore ./projects/Windows/VC10
 
+      - name: Restore dependencies VC11
+        run: dotnet restore ./projects/Windows/VC11
+
+      - name: Restore dependencies VC12
+        run: dotnet restore ./projects/Windows/VC12
+        
       - uses: jfrog/frogbot@5d9c42c30f1169d8be4ba5510b40e75ffcbbc2a9  # v2.21.2
         env:
           # [Mandatory if the two conditions below are met]
@@ -34,7 +42,7 @@ jobs:
           # 2. The `installCommand` variable isn't set in your frogbot-config.yml file.
           #
           # The command that installs the project dependencies (e.g "npm i", "nuget restore" or "dotnet restore")
-          # JF_INSTALL_DEPS_CMD: ""
+          JF_INSTALL_DEPS_CMD: "dotnet restore"
 
           # [Mandatory]
           # JFrog platform URL
